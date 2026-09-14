@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Long Island Rapid Water & Flood Restoration Solutions</title>
+    <style>
+        :root {
+            --bg-main: #fcfdfd;
+            --surface-glass: rgba(255, 255, 255, 0.75);
+            --surface-glass-border: rgba(225, 231, 239, 0.8);
+            --text-primary: #1d1d1f;
+            --text-secondary: #6e6e73;
+            --accent-green-light: #d1fae5;
+            --accent-green-main: #10b981;
+            --accent-green-dark: #047857;
+            --accent-red-light: #fee2e2;
+            --accent-red-main: #ef4444;
+            --accent-red-dark: #b91c1c;
+            --shadow-apple: 0 20px 40px rgba(0, 0, 0, 0.04);
+            --shadow-apple-hover: 0 30px 60px rgba(0, 0, 0, 0.08);
+            --radius-apple: 24px;
+            --transition-apple: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Floating Animated Background Orbs */
+        .ambient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.45;
+            animation: floatOrb 20s infinite alternate ease-in-out;
+        }
+
+        .orb-green {
+            top: -10%;
+            left: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, var(--accent-green-light), rgba(209, 250, 229, 0));
+        }
+
+        .orb-red {
+            bottom: -10%;
+            right: -10%;
+            width: 45vw;
+            height: 45vw;
+            background: radial-gradient(circle, var(--accent-red-light), rgba(254, 226, 226, 0));
+            animation-delay: -7s;
+        }
+
+        @keyframes floatOrb {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(40px, 60px) scale(1.08); }
+            100% { transform: translate(-30px, -20px) scale(0.95); }
+        }
+
+        /* Apple Glass Navigation Bar */
+        header {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1100px;
+            background: var(--surface-glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--surface-glass-border);
+            border-radius: 40px;
+            padding: 12px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+        }
+
+        .brand-logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, var(--accent-green-dark), var(--accent-red-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        nav {
+            display: flex;
+            gap: 8px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 8px 18px;
+            border-radius: 20px;
+            transition: var(--transition-apple);
+            cursor: pointer;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--text-primary);
+            background: rgba(0, 0, 0, 0.04);
+        }
+
+        /* Main Container for Navigation Pages */
+        main {
+            padding-top: 120px;
+            padding-bottom: 60px;
+            min-height: 100vh;
+        }
+
+        .page-section {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .page-section.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Image Display Containers */
+        .graphic-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 30px 0;
+        }
+
+        .graphic-box {
+            width: 100%;
+            max-width: 800px;
+            height: 380px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--surface-glass-border);
+            border-radius: var(--radius-apple);
+            box-shadow: var(--shadow-apple);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .graphic-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-apple);
+        }
+
+        .graphic-box:hover img {
+            transform: scale(1.03);
+        }
+
+        /* Apple Canvas Typography & Sections */
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: -1.5px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .hero-subtitle {
+            font-size: 1.35rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+            max-width: 750px;
+            margin: 0 auto 40px auto;
+            text-align: center;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .apple-card {
+            background: var(--surface-glass);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--surface-glass-border);
+            border-radius: var(--radius-apple);
+            padding: 36px;
+            box-shadow: var(--shadow-apple);
+            transition: var(--transition-apple);
+        }
+
+        .apple-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-apple-hover);
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .bg-green { background: var(--accent-green-light); color: var(--accent-green-dark); }
+        .bg-red { background: var(--accent-red-light); color: var(--accent-red-dark); }
+
+        .apple-card h3 {
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            letter-spacing: -0.3px;
+        }
+
+        .apple-card p {
+            color: var(--text-secondary);
+            font-size: 0.98rem;
+            line-height: 1.6;
+        }
+
+        /* Contact Form Apple Style */
+        .form-container {
+            max-width: 650px;
+            margin: 0 auto;
+            background: var(--surface-glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--surface-glass-border);
+            border-radius: var(--radius-apple);
+            padding: 44px;
+            box-shadow: var(--shadow-apple);
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 16px 20px;
+            border-radius: 14px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+            color: var(--text-primary);
+            transition: var(--transition-apple);
+            outline: none;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--accent-green-main);
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15);
+            background: #ffffff;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--accent-green-main), var(--accent-green-dark));
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-apple);
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.25);
+        }
+
+        .btn-submit:hover {
+            transform: scale(1.01);
+            box-shadow: 0 12px 28px rgba(16, 185, 129, 0.35);
+        }
+
+        /* Professional Blog Page Styling */
+        .blog-wrapper {
+            background: var(--surface-glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--surface-glass-border);
+            border-radius: var(--radius-apple);
+            padding: 60px;
+            box-shadow: var(--shadow-apple);
+        }
+
+        .blog-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+        }
+
+        .blog-content h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            line-height: 1.25;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+        }
+
+        .blog-content h2 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            margin: 36px 0 16px 0;
+            color: var(--text-primary);
+        }
+
+        .blog-content h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 24px 0 12px 0;
+            color: var(--text-primary);
+        }
+
+        .blog-content p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .blog-content ul {
+            margin: 0 0 24px 24px;
+            color: var(--text-secondary);
+        }
+
+        .blog-content li {
+            margin-bottom: 10px;
+            line-height: 1.7;
+        }
+
+        .keyword-anchor {
+            color: var(--accent-green-dark);
+            font-weight: 600;
+            text-decoration: underline;
+            text-decoration-color: var(--accent-green-main);
+            text-underline-offset: 4px;
+            transition: var(--transition-apple);
+        }
+
+        .keyword-anchor:hover {
+            color: var(--accent-red-main);
+            text-decoration-color: var(--accent-red-main);
+        }
+
+        .faq-box {
+            background: rgba(243, 244, 246, 0.6);
+            border-radius: 16px;
+            padding: 24px;
+            margin: 20px 0;
+            border-left: 4px solid var(--accent-green-main);
+        }
+
+        .faq-box h3 {
+            margin-top: 0;
+            font-size: 1.15rem;
+            color: var(--text-primary);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Ambient Floating Orbs (Motion Graphic Accent) -->
+    <div class="ambient-bg">
+        <div class="orb orb-green"></div>
+        <div class="orb orb-red"></div>
+    </div>
+
+    <!-- Apple Navigation Bar -->
+    <header>
+        <a class="brand-logo" onclick="showPage('home')">HydroCare Shield</a>
+        <nav>
+            <a id="nav-home" class="active" onclick="showPage('home')">Home</a>
+            <a id="nav-about" onclick="showPage('about')">About</a>
+            <a id="nav-service" onclick="showPage('service')">Services</a>
+            <a id="nav-blog" onclick="showPage('blog')">Blog</a>
+            <a id="nav-contact" onclick="showPage('contact')">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- PAGE 1: HOME PAGE -->
+        <section id="page-home" class="page-section active">
+            <h1 class="hero-title">Precision Restoration.<br>Designed for Peace of Mind.</h1>
+            <p class="hero-subtitle">Advanced water containment, thermal moisture analysis, and structural recovery executed with seamless engineering precision.</p>
+
+            <div class="graphic-container">
+                <div class="graphic-box">
+                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1200&q=80" alt="Professional Water Restoration Equipment">
+                </div>
+            </div>
+
+            <div class="cards-grid">
+                <div class="apple-card">
+                    <div class="card-icon bg-green">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    </div>
+                    <h3>Immediate Response</h3>
+                    <p>Rapid deployment teams equipped with industrial moisture diagnostics ready at any hour.</p>
+                </div>
+                <div class="apple-card">
+                    <div class="card-icon bg-red">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
+                    <h3>Structural Protection</h3>
+                    <p>Complete mitigation protocol designed to prevent secondary micro-biological hazards.</p>
+                </div>
+                <div class="apple-card">
+                    <div class="card-icon bg-green">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                    </div>
+                    <h3>Precision Dry-Tech</h3>
+                    <p>Scientific psychrometric drying curves customized for high-value residential materials.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE 2: ABOUT PAGE -->
+        <section id="page-about" class="page-section">
+            <h1 class="hero-title">Standards Built on Clarity.</h1>
+            <p class="hero-subtitle">We redefine structural recovery by combining environmental engineering with seamless luxury client care.</p>
+
+            <div class="graphic-container">
+                <div class="graphic-box">
+                    <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1200&q=80" alt="Engineering Inspection and Restoration Architecture">
+                </div>
+            </div>
+
+            <div class="apple-card" style="margin-top: 20px;">
+                <h3>Our Core Philosophy</h3>
+                <p>Water intrusion demands more than extraction; it calls for strict analytical containment. Our methodologies strictly adhere to IICRC S500 standards, ensuring structural integrity is fully evaluated, documented, and restored without unnecessary demolition.</p>
+            </div>
+        </section>
+
+        <!-- PAGE 3: SERVICE PAGE -->
+        <section id="page-service" class="page-section">
+            <h1 class="hero-title">Technical Capabilities.</h1>
+            <p class="hero-subtitle">Comprehensive environmental moisture control engineered for modern properties.</p>
+
+            <div class="graphic-container">
+                <div class="graphic-box">
+                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1200&q=80" alt="Industrial Moisture Monitoring and Technical Service">
+                </div>
+            </div>
+
+            <div class="cards-grid">
+                <div class="apple-card">
+                    <div class="card-icon bg-green">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+                    </div>
+                    <h3>Thermal Moisture Detection</h3>
+                    <p>Non-invasive infrared imaging pinpointing hidden pockets behind structural insulation.</p>
+                </div>
+                <div class="apple-card">
+                    <div class="card-icon bg-red">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.59 4.59A2 2 0 0 1 11 4h2a2 2 0 0 1 2 2v2h3a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h3V6a2 2 0 0 1 .59-1.41z"/></svg>
+                    </div>
+                    <h3>Desiccant Dehumidification</h3>
+                    <p>Industrial-grade air scrubbing and low-grain refrigerant systems for rapid dry-out cycles.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE 4: BLOG PAGE (1200+ Words Structured Content) -->
+        <section id="page-blog" class="page-section">
+            <div class="blog-wrapper">
+                <div class="blog-header">
+                    <div style="font-size:0.85rem; font-weight:700; color:var(--accent-green-dark); text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">Comprehensive Technical Guide</div>
+                    <div style="color:var(--text-secondary); font-size:0.9rem;">Reading Time: 8 min • Updated Technical Brief</div>
+                </div>
+
+                <div class="blog-content">
+                    <h1>Comprehensive Protocol for Architectural Moisture Management and Structural Recovery</h1>
+
+                    <p>Water intrusion within residential or commercial properties presents one of the most dynamic challenges in modern building science. When fluid breaches the envelope of a structure, whether through heavy precipitation, subterranean hydrostatic pressure, or internal plumbing failure, the clock immediately begins ticking. Moisture migration is not a static condition; it is an active physical process governed by thermodynamic principles, capillary action, and vapor pressure differentials. Understanding how to manage and reverse this intrusion requires a sophisticated approach combining physics, microbiology, and specialized equipment deployment.</p>
+
+                    <div class="graphic-container">
+                        <div class="graphic-box">
+                            <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80" alt="Home Restoration Diagnostics">
+                        </div>
+                    </div>
+
+                    <h2>Understanding the Physics of Water Intrusion and Hydrostatic Forces</h2>
+
+                    <p>To effectively address liquid ingress, one must first analyze the pathways through which moisture moves. Building materials such as drywall, concrete masonry units (CMU), oriented strand board (OSB), and hardwood flooring are inherently porous. When exposed to liquid water, capillary pressure pulls moisture into micro-voids within these materials, allowing water to travel vertically against gravity. This phenomenon, known as bound water accumulation, causes materials to swell, lose structural load capacity, and become prime breeding grounds for biological agents.</p>
+
+                    <p>In coastal and suburban topographies, subterranean hydrostatic pressure plays a major role. Following significant rain events, ground water tables rise, exerting upward and lateral pressure against basement foundations and slab-on-grade structures. Even hairline fractures in concrete can become high-pressure pathways for water entry. Professional mitigation begins with evaluating these pressure dynamics to prevent continued ingress while extraction operations take place.</p>
+
+                    <p>When dealing with regional structural challenges, seeking specialized <a href="https://quickwaterrestore.com/" class="keyword-anchor">Water Damage Restoration in Long Island</a> ensures that local climate patterns, coastal humidity variables, and specific architectural foundations are accounted for during the drying phase.</p>
+
+                    <h2>The Four Essential Phases of Structural Dry-Out Protocol</h2>
+
+                    <p>Systematic recovery requires strict adherence to a multi-stage workflow. Skipping any phase significantly increases the risk of long-term structural degradation and secondary microbial growth.</p>
+
+                    <h3>Phase 1: Inspection, Thermal Mapping, and Categorization</h3>
+                    <p>The initial phase demands thorough diagnostic assessment using non-destructive technology. High-resolution infrared thermography detects subtle temperature differences created by evaporative cooling, revealing hidden moisture corridors inside wall cavities and subfloors. Physical pin-type and pinless moisture meters are then used to establish baseline moisture content (%MC) readings across affected and unaffected controls.</p>
+
+                    <p>Water intrusion is categorized according to contamination level:</p>
+                    <ul>
+                        <li><strong>Category 1:</strong> Clean water originates from sanitary sources such as broken domestic supply lines.</li>
+                        <li><strong>Category 2:</strong> Grey water contains significant contamination (e.g., washing machine overflow or dishwasher discharge) with potential for discomfort or illness.</li>
+                        <li><strong>Category 3:</strong> Black water is highly unsanitary, carrying pathogenic agents from sewage backups or surface flooding.</li>
+                    </ul>
+
+                    <h3>Phase 2: Bulk Liquid Extraction</h3>
+                    <p>Evaporating liquid water using air movement alone is extremely inefficient and energy-intensive. Physical extraction using heavy-duty submersible pumps and weighted extraction tools is up to 500 times more efficient than evaporation. Deep extraction mats are applied to hardwood and carpeted assemblies to pull bound water directly from subfloor underlayments under high vacuum seal.</p>
+
+                    <h3>Phase 3: Psychrometric Drying and Dehumidification</h3>
+                    <p>Once bulk liquid is removed, psychrometrics—the study of thermodynamic properties of moist air—guides the process. Technicians balance relative humidity (RH), ambient temperature, and specific humidity (grains per pound - GPP) to optimize the vapor pressure gradient. By keeping the air above affected materials dry and warm, moisture is continuously pulled from inside structural framing into the surrounding air, where high-capacity LGR (Low Grain Refrigerant) or desiccant dehumidifiers condense and discharge it.</p>
+
+                    <h3>Phase 4: Antimicrobial Application and Environmental Monitoring</h3>
+                    <p>To prevent fungal spore germination, EPA-registered botanicals or broad-spectrum antimicrobials are applied to semi-porous substrates. Daily monitoring logs track the reduction of GPP and %MC until structural elements return to verified pre-loss standards.</p>
+
+                    <div class="graphic-container">
+                        <div class="graphic-box">
+                            <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80" alt="Clean Dry Interior Living Space Restoration">
+                        </div>
+                    </div>
+
+                    <h2>Mitigating Secondary Damage and Fungal Colonization</h2>
+
+                    <p>The secondary consequence of unmanaged moisture is biological proliferation. Mold spores exist naturally in ambient environments; however, they require three conditions to germinate: a organic food source (cellulose in drywall or wood), temperature between 60°F and 80°F, and elevated moisture (RH above 60% or water activity above 0.75). Germination typically occurs within 24 to 48 hours of initial exposure.</p>
+
+                    <p>Controlling relative humidity is therefore non-negotiable. Negative air machines equipped with HEPA filtration (retaining 99.97% of particles down to 0.3 microns) are deployed during drying to capture airborne particulates and prevent cross-contamination to unaffected rooms of the building.</p>
+
+                    <h2>Technical Conclusion on Structural Preservation</h2>
+
+                    <p>In summary, modern moisture control is an exact science that relies on rapid execution, advanced psychrometric principles, and rigorous environmental controls. By understanding the physics of capillary action, leveraging thermal diagnostics, maintaining optimal vapor pressure gradients, and adhering to certified industry standards, property owners can completely restore structural integrity and ensure long-term indoor environmental quality.</p>
+
+                    <h2>Frequently Asked Questions</h2>
+
+                    <div class="faq-box">
+                        <h3>How long does the industrial structural drying process typically take?</h3>
+                        <p>Under standard conditions with proper psychrometric management, structural dry-out typically requires between 3 to 5 days. Dense materials like concrete or multi-layer subflooring may require extended desiccant drying cycles.</p>
+                    </div>
+
+                    <div class="faq-box">
+                        <h3>Why is ambient air heating alone insufficient for drying wet structures?</h3>
+                        <p>Heat increases the air's capacity to hold moisture, but without high-capacity dehumidification to extract that moisture from the environment, high humidity will lead to secondary condensation on cooler surfaces, accelerating mold growth.</p>
+                    </div>
+
+                    <div class="faq-box">
+                        <h3>Should damaged drywall always be removed following liquid ingress?</h3>
+                        <p>Not always. In Category 1 instances where drywall structural stability remains intact, cavity drying systems can dry drywall in place. However, Category 2 or 3 events require removal of affected drywall up to at least 12-24 inches above the water line for sanitary safety.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE 5: CONTACT PAGE (No Direct Contact Info - Customer Form Only) -->
+        <section id="page-contact" class="page-section">
+            <h1 class="hero-title">Initiate Assistance.</h1>
+            <p class="hero-subtitle">Submit your details below, and an emergency environmental specialist will connect with you instantly.</p>
+
+            <div class="graphic-container">
+                <div class="graphic-box" style="height: 280px;">
+                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80" alt="Modern Architecture Office Center">
+                </div>
+            </div>
+
+            <div class="form-container">
+                <form onsubmit="event.preventDefault(); alert('Thank you. Your request has been transmitted securely.');">
+                    <div class="form-group">
+                        <label for="cust-name">Full Name</label>
+                        <input type="text" id="cust-name" placeholder="Enter your full name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cust-phone">Phone Number</label>
+                        <input type="tel" id="cust-phone" placeholder="Enter your contact number" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cust-email">Email Address</label>
+                        <input type="email" id="cust-email" placeholder="Enter your email address" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cust-message">Short Message / Brief Description</label>
+                        <textarea id="cust-message" rows="4" placeholder="Briefly describe your situation..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-submit">Dispatch Request</button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 HydroCare Shield Environmental Systems. All rights reserved.</p>
+    </footer>
+
+    <!-- Single Page App Dynamic Navigation Script -->
+    <script>
+        function showPage(pageId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.page-section');
+            sections.forEach(sec => {
+                sec.classList.remove('active');
+            });
+
+            // Update nav active state
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // Show selected section
+            const targetSection = document.getElementById('page-' + pageId);
+            if(targetSection) {
+                targetSection.classList.add('active');
+            }
+
+            const targetNav = document.getElementById('nav-' + pageId);
+            if(targetNav) {
+                targetNav.classList.add('active');
+            }
+
+            // Smooth scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
